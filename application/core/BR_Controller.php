@@ -22,5 +22,14 @@ class BR_Controller extends CI_Controller  {
         $this->load->view('layout/'.$footer_page, $this->data);
         
     }
+    
+    
+    protected function admin_show_views($page) {
+        
+         $this->load->view('layout/adminheader_page', $this->data);
+        $this->load->view($page, $this->data);
+        $this->load->view('layout/adminfooter_page', $this->data);
+        
+    }
 }
 
