@@ -33,7 +33,9 @@ class Blog extends CI_Controller {
             $data['success_message'] = $this->session->flashdata('success_message');
         }
         
+        $this->load->view('layout/header_page', $data);
         $this->load->view('blog/blog_page', $data);
+        $this->load->view('layout/footer_page', $data);
     }
     
     
@@ -51,7 +53,9 @@ class Blog extends CI_Controller {
         $data['post_details'] = $post_details;
         
         //echo '<pre>'.print_r($post_details, TRUE); die;
+        $this->load->view('layout/header_page', $data);
         $this->load->view('blog/viewblog_page', $data);
+        $this->load->view('layout/footer_page', $data);
         
     }
     
@@ -65,7 +69,9 @@ class Blog extends CI_Controller {
         $data = array();
         $post_details = $this->Posts->get_post_by_id($post_id);
           $data['post_details'] = $post_details;
+          $this->load->view('layout/header_page', $data);
           $this->load->view('blog/editblog_page', $data);
+          $this->load->view('layout/footer_page', $data);
         
         
         
@@ -93,7 +99,7 @@ class Blog extends CI_Controller {
     
     
     public function add() {
-        
+        $this->load->view('layout/header_page');
         $this->load->view('blog/addblog_page');
         
     }
