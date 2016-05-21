@@ -14,6 +14,11 @@ class Blog extends CI_Controller {
         $this->load->model('Posts'); 
     }
     
+    
+    /**
+     * Shows all the posts
+     */
+    
     public function index() {
         $data = array();
        
@@ -24,10 +29,22 @@ class Blog extends CI_Controller {
         
         $data['title'] = 'Posts';
         
+        if ($this->session->flashdata('success_message') !== FALSE) {
+            $data['success_message'] = $this->session->flashdata('success_message');
+        }
+        
         $this->load->view('blog/blog_page', $data);
     }
     
     
+    
+    /**
+     * 
+     * Shows single post based on the  post id
+     * @param type $post_id
+     * 
+     * 
+     */
     public function view($post_id) {
         $data = array();
         $post_details = $this->Posts->get_post_by_id($post_id);
@@ -38,6 +55,12 @@ class Blog extends CI_Controller {
         
     }
     
+    
+    /**
+     * 
+     * Edit post
+     * @param type $post_id
+     */
     public function edit($post_id) {
         $data = array();
         $post_details = $this->Posts->get_post_by_id($post_id);
@@ -48,16 +71,44 @@ class Blog extends CI_Controller {
         
     }
     
+    
+    /**
+     * 
+     * Update Post
+     * @param type $post_id
+     */
     public function updatepost($post_id) {
         $title = $this->input->post('title');
         $description = $this->input->post('description');       
          
          $this->Posts->update_post($title, $description, $post_id);
          
+         $this->session->set_flashdata('success_message', 'Post Updated successfully');
+         
          
          redirect(site_url('blog'));
         
         
+    }
+    
+    
+    public function add() {
+        
+        $this->load->view('blog/addblog_page');
+        
+    }
+    
+    
+    public function storepost() {
+        $title = $this->input->post('title');
+        $description = $this->input->post('description');
+        
+        $this->Posts->add_post($title, $description);
+        
+        $this->session->set_flashdata('success_message', 'Post added Successfully');
+        
+        
+        redirect(site_url('blog'));
     }
     
     
