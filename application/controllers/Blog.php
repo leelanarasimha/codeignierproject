@@ -6,12 +6,14 @@
  * and open the template in the editor.
  */
 
-class Blog extends CI_Controller {
+class Blog extends BR_Controller {
     
     
     public function __construct() {
         parent::__construct();
+        
         $this->load->model('Posts'); 
+        
     }
     
     
@@ -20,22 +22,19 @@ class Blog extends CI_Controller {
      */
     
     public function index() {
-        $data = array();
        
         
         $posts = $this->Posts->get_posts();
         
-        $data['posts'] = $posts;
+        $this->data['posts'] = $posts;
         
-        $data['title'] = 'Posts';
+        $this->data['title'] = 'Posts';
         
         if ($this->session->flashdata('success_message') !== FALSE) {
-            $data['success_message'] = $this->session->flashdata('success_message');
+            $this->data['success_message'] = $this->session->flashdata('success_message');
         }
         
-        $this->load->view('layout/header_page', $data);
-        $this->load->view('blog/blog_page', $data);
-        $this->load->view('layout/footer_page', $data);
+        $this->show_views('blog/blog_page');
     }
     
     
@@ -48,14 +47,11 @@ class Blog extends CI_Controller {
      * 
      */
     public function view($post_id) {
-        $data = array();
         $post_details = $this->Posts->get_post_by_id($post_id);
-        $data['post_details'] = $post_details;
+        $this->data['post_details'] = $post_details;
         
         //echo '<pre>'.print_r($post_details, TRUE); die;
-        $this->load->view('layout/header_page', $data);
-        $this->load->view('blog/viewblog_page', $data);
-        $this->load->view('layout/footer_page', $data);
+       $this->show_views('blog/viewblog_page');
         
     }
     
@@ -66,12 +62,9 @@ class Blog extends CI_Controller {
      * @param type $post_id
      */
     public function edit($post_id) {
-        $data = array();
         $post_details = $this->Posts->get_post_by_id($post_id);
-          $data['post_details'] = $post_details;
-          $this->load->view('layout/header_page', $data);
-          $this->load->view('blog/editblog_page', $data);
-          $this->load->view('layout/footer_page', $data);
+          $this->data['post_details'] = $post_details;
+          $this->show_views('blog/editblog_page');
         
         
         
@@ -99,8 +92,7 @@ class Blog extends CI_Controller {
     
     
     public function add() {
-        $this->load->view('layout/header_page');
-        $this->load->view('blog/addblog_page');
+        $this->show_views('blog/addblog_page');
         
     }
     
