@@ -62,6 +62,12 @@ class Blog extends BR_Controller {
      * @param type $post_id
      */
     public function edit($post_id) {
+        $this->data['errors'] = array();
+        
+        if ($this->session->flashdata('error_message') !== false) {
+            $this->data['errors'] = $this->session->flashdata('error_message');
+        }
+        
         $post_details = $this->Posts->get_post_by_id($post_id);
           $this->data['post_details'] = $post_details;
           $this->show_views('blog/editblog_page');
@@ -78,7 +84,23 @@ class Blog extends BR_Controller {
      */
     public function updatepost($post_id) {
         $title = $this->input->post('title');
-        $description = $this->input->post('description');       
+        $description = $this->input->post('description');
+        
+        
+        $errors = array();
+        if ($title == '') {
+            $errors[] = 'Title is empty';
+        }
+        
+        if ($description == '') {
+            $errors[] = 'Description is empty';
+        }
+        
+       if (count($errors)) {
+           $this->session->set_flashdata('error_message', $errors);
+              redirect(site_url('blog/edit/'.$post_id));
+           
+       }
          
          $this->Posts->update_post($title, $description, $post_id);
          
@@ -92,21 +114,29 @@ class Blog extends BR_Controller {
     
     
     public function add() {
-        $this->show_views('blog/addblog_page');
+        $this->load->library('form_validation');
         
-    }
-    
-    
-    public function storepost() {
-        $title = $this->input->post('title');
-        $description = $this->input->post('description');
+        $this->form_validation->set_rules('title', 'Name', 'required|valid_email');
+        $this->form_validation->set_rules('description', 'Desription', 'required');
         
-        $this->Posts->add_post($title, $description);
+        if ($this->form_validation->run() == FALSE) {
+            
+            $this->show_views('blog/addblog_page');
+             
+         } else {
+             $title = $this->input->post('title');
+             $description = $_POST['description'];
+             
+             $this->Posts->add_post($title, $description);
         
-        $this->session->set_flashdata('success_message', 'Post added Successfully');
+            $this->session->set_flashdata('success_message', 'Post added Successfully');
         
         
-        redirect(site_url('blog'));
+            redirect(site_url('blog'));
+             
+         } 
+        
+        
     }
     
     

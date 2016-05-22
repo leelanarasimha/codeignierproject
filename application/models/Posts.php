@@ -49,7 +49,8 @@ class Posts extends CI_Model {
     
     public function add_post($title, $description) {
         $added_date = date('Y-m-d H:i:s');
-        $sql = "INSERT INTO posts (`title`, `description`, `added_date`) VALUES ('$title', '$description', '$added_date')";
+        $sql = "INSERT INTO posts (`title`, `description`, `added_date`) "
+                . "VALUES ('$title', '$description', '$added_date')";
         
         return $this->db->query($sql);
     }
