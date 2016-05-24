@@ -12,7 +12,7 @@ class Blog extends BR_Controller {
     public function __construct() {
         parent::__construct();
         
-        $this->load->model('Posts'); 
+        $this->load->model('Posts');
         
     }
     

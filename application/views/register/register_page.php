@@ -4,7 +4,7 @@
             <div class="login_page">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-header">Login</h1>
+                        <h1 class="page-header">Register</h1>
                     </div>
                 </div>
                 
@@ -23,17 +23,18 @@
                             <div><?php echo form_error('password'); ?></div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control" />
+                            <div><?php echo form_error('confirm_password'); ?></div>
+                        </div>
+                    </div>
                     
                     <div style="margin-top: 20px;">
-                        <input type="submit" name="submit" value="Login" class="btn btn-primary"/>
+                        <input type="submit" name="submit" value="Register" class="btn btn-primary"/>
                     </div>
                 </form>
-                
-                <div class="row">
-                    <div class="col-md-12">
-                        <a href="<?php echo site_url('register'); ?>">Register Here</a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
