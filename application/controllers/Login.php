@@ -14,6 +14,8 @@ class Login extends BR_Controller {
     
     public function index() {
         
+        echo "hai"; die;
+        
         $this->load->library('form_validation');        
         $this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required');

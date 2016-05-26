@@ -27,8 +27,9 @@ class Blog extends BR_Controller {
      */
     
     public function index() {
-       
         
+        
+       
         $posts = $this->Posts->get_posts();
         
         $this->data['posts'] = $posts;
