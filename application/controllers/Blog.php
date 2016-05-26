@@ -12,6 +12,11 @@ class Blog extends BR_Controller {
     public function __construct() {
         parent::__construct();
         
+        if ( ! $this->logged_in_id) {
+            $this->session->set_flashdata('error_message', 'Please login to access this page');
+            redirect(site_url('login'));
+        }
+        
         $this->load->model('Posts');
         
     }

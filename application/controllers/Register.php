@@ -10,6 +10,11 @@ class Register extends BR_Controller {
     
     public function __construct() {
         parent::__construct();
+        
+        if ( $this->logged_in_id) {
+            $this->session->set_flashdata('success_message', 'You are already registered');
+            redirect(site_url('blog'));
+        }
     }
     
     public function index() {

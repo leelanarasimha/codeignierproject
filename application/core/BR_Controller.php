@@ -9,9 +9,17 @@
 class BR_Controller extends CI_Controller  {
     
     public $data = array();
+    public $logged_in_id = FALSE;
     
     public function __construct() {
         parent::__construct();
+        
+        if ($this->session->userdata('id') !== FALSE) {
+            $this->logged_in_id = $this->session->userdata('id');
+            $this->data['logged_in_id'] = $this->logged_in_id;
+        }
+        
+        
     }
     
     
