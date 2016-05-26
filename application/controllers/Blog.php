@@ -32,6 +32,7 @@ class Blog extends BR_Controller {
        
         $posts = $this->Posts->get_posts();
         
+        
         $this->data['posts'] = $posts;
         
         $this->data['title'] = 'Posts';
@@ -39,6 +40,7 @@ class Blog extends BR_Controller {
         if ($this->session->flashdata('success_message') !== FALSE) {
             $this->data['success_message'] = $this->session->flashdata('success_message');
         }
+        
         
         $this->show_views('blog/blog_page');
     }
@@ -121,6 +123,7 @@ class Blog extends BR_Controller {
     
     public function add() {
         $this->load->library('form_validation');
+        
         
         $this->form_validation->set_rules('title', 'Name', 'required|valid_email');
         $this->form_validation->set_rules('description', 'Desription', 'required');
